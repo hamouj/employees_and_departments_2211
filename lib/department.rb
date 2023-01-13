@@ -6,4 +6,8 @@ class Department
     @name = name
     @employees = []
   end
+
+  def hire(employee)
+    @employees.push(employee)
+  end
 end
