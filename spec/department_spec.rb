@@ -35,10 +35,30 @@ describe Department do
 
   describe '#expense()' do
     it 'adds expenses' do
-      customer_service.expense(100)
-      customer_service.expense(25)
+      customer_service.expense("computer", bobbi, 100)
+      customer_service.expense("headphones", bobbi, 25)
       
       expect(customer_service.expenses).to eq(125)
+    end
+  end
+
+  describe '#expenses_breakdown' do
+    it 'breakdowns the expense by name and employee' do
+      customer_service.expense("computer", bobbi, 100)
+      customer_service.expense("headphones", bobbi, 25)
+
+      expected_hash = {
+        "computer" => {
+                        amount: 100,
+                        employee: bobbi
+                      },
+        "headphones" => {
+                        amount: 25,
+                        employee: bobbi
+                        }
+      }
+
+      expect(customer_service.expenses_breakdown).to eq(expected_hash)
     end
   end
 end
