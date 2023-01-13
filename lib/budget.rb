@@ -25,7 +25,7 @@ class Budget
     end
   end
 
-  def track_expenses
+  def track_expenses_by_employee
     expenses_by_employee = Hash.new {|hash, key| hash[key] = []}
     @departments.each do |department|
       department.expenses_breakdown.each do |name, hash|
@@ -33,5 +33,15 @@ class Budget
       end
     end
     expenses_by_employee
+  end
+
+  def total_expenses_by_employee(employee)
+    total_expenses_for_employee = 0
+    track_expenses_by_employee.each do |employee1, array|
+      array.each do |hash|
+        total_expenses_for_employee += hash[:amount] if employee == employee1
+      end
+    end
+    total_expenses_for_employee
   end
 end
