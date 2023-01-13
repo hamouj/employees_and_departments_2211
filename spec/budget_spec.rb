@@ -16,5 +16,9 @@ describe Budget do
     it 'has a year' do
       expect(budget.year).to eq(2023)
     end
+
+    it 'starts with no departments' do
+      expect(budget.departments).to eq([])
+    end
   end
 end
