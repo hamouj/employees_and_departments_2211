@@ -24,4 +24,14 @@ class Budget
       end
     end
   end
+
+  def track_expenses
+    expenses_by_employee = Hash.new {|hash, key| hash[key] = []}
+    @departments.each do |department|
+      department.expenses_breakdown.each do |name, hash|
+        expenses_by_employee[hash[:employee]] << {purchase: name, amount: hash[:amount]}
+      end
+    end
+    expenses_by_employee
+  end
 end
