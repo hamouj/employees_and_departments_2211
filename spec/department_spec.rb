@@ -21,6 +21,7 @@ describe Department do
 
     it 'starts with no expenses' do
       expect(customer_service.expenses).to eq(0)
+      expect(customer_service.expenses_breakdown).to eq({})
     end
   end
 
