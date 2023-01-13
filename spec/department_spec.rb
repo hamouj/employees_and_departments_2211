@@ -18,6 +18,10 @@ describe Department do
     it 'starts with no employees' do
       expect(customer_service.employees).to eq([])
     end
+
+    it 'starts with no expenses' do
+      expect(customer_service.expenses).to eq(0)
+    end
   end
 
   describe '#hire()' do
