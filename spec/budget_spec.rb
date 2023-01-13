@@ -75,59 +75,6 @@ describe Budget do
     end
   end
 
-  describe '#track_expenses_by_employee' do
-    it 'returns a hash with employees(keys) and their expenses(values)' do
-      budget.add_department(customer_service)
-      budget.add_department(marketing)
-      budget.add_department(sales)
-
-      customer_service.hire(bobbi)
-      customer_service.hire(aaron)
-      marketing.hire(jamison)
-      marketing.hire(dani)
-      sales.hire(abdul)
-
-      customer_service.expense("computer", bobbi, 100)
-      customer_service.expense("headphones", bobbi, 25)
-      customer_service.expense("wall art", abdul, 500)
-      marketing.expense("bookshelf", dani, 200)
-      sales.expense("printer", jamison, 150)
-
-      expected_hash = {
-        bobbi => [
-                {
-                  purchase: "computer",
-                  amount: 100
-                  },
-                {
-                  purchase: "headphones",
-                  amount: 25
-                }
-                ],
-        abdul => [
-                {
-                  purchase: "wall art",
-                  amount: 500
-                }
-                ],
-        dani => [
-                {
-          purchase: "bookshelf",
-          amount: 200
-                }
-                ],
-        jamison => [ 
-                  {
-          purchase: "printer",
-          amount: 150
-                }
-                ]
-      }
-
-      expect(budget.track_expenses_by_employee).to eq(expected_hash)
-    end
-  end
-
   describe '#total_expenses_by_employee()' do
     it 'returns the total expenses by an employee' do
       budget.add_department(customer_service)
@@ -149,6 +96,36 @@ describe Budget do
       expect(budget.total_expenses_by_employee(bobbi)).to eq(125)
       expect(budget.total_expenses_by_employee(jamison)).to eq(150)
       expect(budget.total_expenses_by_employee(aaron)).to eq(0)
+    end
+  end
+
+  describe 'employee_made_expenses' do
+    it 'returns a hash of expenses(keys) and employees(values)' do
+      budget.add_department(customer_service)
+      budget.add_department(marketing)
+      budget.add_department(sales)
+
+      customer_service.hire(bobbi)
+      customer_service.hire(aaron)
+      marketing.hire(jamison)
+      marketing.hire(dani)
+      sales.hire(abdul)
+
+      customer_service.expense("computer", bobbi, 100)
+      customer_service.expense("headphones", bobbi, 25)
+      customer_service.expense("wall art", abdul, 500)
+      marketing.expense("bookshelf", dani, 200)
+      sales.expense("printer", jamison, 150)
+
+      expected_hash = {
+        "computer" => bobbi,
+        "headphones" => bobbi,
+        "wall art" => abdul,
+        "bookshelf" => dani,
+        "printer" => jamison
+      }
+
+      expect(budget.employee_made_expenses).to eq(expected_hash)
     end
   end
 end
