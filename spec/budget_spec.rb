@@ -4,7 +4,7 @@ require './lib/employee'
 
 describe Budget do
   let(:budget) {Budget.new(2023)}
-  
+
   let(:customer_service) {Department.new("Customer Service")}
   let(:marketing) {Department.new("Marketing")}
   let(:sales) {Department.new("Sales")}
@@ -33,6 +33,20 @@ describe Budget do
       budget.add_department(sales)
 
       expect(budget.departments).to eq([customer_service, marketing, sales])
+    end
+  end
+
+  describe 'small_expense_departments' do
+    it 'lists departments with expenses less than 500' do
+      budget.add_department(customer_service)
+      budget.add_department(marketing)
+      budget.add_department(sales)
+
+      customer_service.expense(500)
+      marketing.expense(200)
+      sales.expense(150)
+
+      expect(budget.small_expense_departments).to eq([marketing, sales])
     end
   end
 end
