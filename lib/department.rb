@@ -12,4 +12,8 @@ class Department
   def hire(employee)
     @employees.push(employee)
   end
+
+  def expense(amount)
+    @expenses += amount
+  end
 end
