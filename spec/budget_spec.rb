@@ -124,11 +124,11 @@ describe Budget do
                 ]
       }
 
-      expect(budget.track_expenses).to eq(expected_hash)
+      expect(budget.track_expenses_by_employee).to eq(expected_hash)
     end
   end
 
-  describe '#total_expenses()' do
+  describe '#total_expenses_by_employee()' do
     it 'returns the total expenses by an employee' do
       budget.add_department(customer_service)
       budget.add_department(marketing)
@@ -146,9 +146,9 @@ describe Budget do
       marketing.expense("bookshelf", dani, 200)
       sales.expense("printer", jamison, 150)
 
-      expect(budget.total_expenses(bobbi)).to eq(125)
-      expect(budget.total_expenses(jamison)).to eq(150)
-      expect(budget.total_expenses(aaron)).to eq(0)
+      expect(budget.total_expenses_by_employee(bobbi)).to eq(125)
+      expect(budget.total_expenses_by_employee(jamison)).to eq(150)
+      expect(budget.total_expenses_by_employee(aaron)).to eq(0)
     end
   end
 end
