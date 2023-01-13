@@ -11,6 +11,9 @@ describe Budget do
 
   let(:bobbi) {Employee.new({name: "Bobbi Jaeger", age: "30", salary: "100000"})}
   let(:aaron) {Employee.new({name: "Aaron Tanaka", age: "25", salary: "90000"})}
+  let(:jamison) {Employee.new({name: "Jamison Ordway", age: "19", salary: "120000"})}
+  let(:dani) {Employee.new({name: "Dani Coleman", age: "20", salary: "120001"})}
+  let(:abdul) {Employee.new({name: "Abdul Redd", age: "21", salary: "120002"})}
 
   describe '#initialize' do
     it 'exists' do
@@ -36,7 +39,7 @@ describe Budget do
     end
   end
 
-  describe 'small_expense_departments' do
+  describe '#small_expense_departments' do
     it 'lists departments with expenses less than 500' do
       budget.add_department(customer_service)
       budget.add_department(marketing)
@@ -47,6 +50,22 @@ describe Budget do
       sales.expense(150)
 
       expect(budget.small_expense_departments).to eq([marketing, sales])
+    end
+  end
+
+  describe '#list_employee_salaries' do
+    it 'lists all employee salaries' do
+      budget.add_department(customer_service)
+      budget.add_department(marketing)
+      budget.add_department(sales)
+
+      customer_service.hire(bobbi)
+      customer_service.hire(aaron)
+      marketing.hire(jamison)
+      marketing.hire(dani)
+      sales.hire(abdul)
+      
+      expect(budget.list_employee_salaries).to eq([100000, 90000, 120000, 120001, 120002])
     end
   end
 end
